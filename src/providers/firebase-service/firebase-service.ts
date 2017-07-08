@@ -71,4 +71,8 @@ export class FirebaseServiceProvider {
     return this.afd.list(`/partLists/${listId}/items`).remove(itemId);
   }
 
+  shareList(listId, listName, shareWith) {
+    return this.afd.list('/invitations').push({ listId: listId, listName: listName, toEmail: shareWith, formEmail: this.user.email });
+  }
+
 }

@@ -110,4 +110,34 @@ export class HomePage {
     this.firebaseService.removePartItem(listId, itemId);
   }
 
+  shareList(listId, listName) {
+    let prompt = this.alertCtrl.create({
+      title: 'Share your list "' + listName + '"',
+      message: 'Enter the email of the person you want to share your list with',
+      inputs: [
+        {
+          name: 'email',
+          placeholder: 'mail@mail.pl'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel'
+        },
+        {
+          text: 'Share list',
+          handler: data => {
+            this.firebaseService.shareList(listId, listName, data.email).then(data => {
+              this.presentToast('Invitation sent to ' + data.email);
+            })
+              .catch(err => {
+
+              });
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
 }

@@ -21,9 +21,15 @@
 
   <ion-list *ngFor="let list of partLists | async" padding-top>
     <ion-list-header>
+
       <button ion-button item-left clear color="danger" icon-only (click)="removeList(list.$key)" *ngIf="editMode">
         <ion-icon name="remove-circle"></ion-icon>
         </button> {{ list.name }}
+
+      <button ion-button item-right clear icon-only (click)="shareList(list.$key, list.name)">
+          <ion-icon name="share"></ion-icon>
+      </button>
+
       <button ion-button item-right clear icon-only (click)="addItemToList(list.$key, list.name)">
           <ion-icon name="add"></ion-icon>
       </button>
