@@ -13,7 +13,6 @@ import { AngularFireModule } from "angularfire2";
 
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
 import { HttpModule } from "@angular/http";
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -22,8 +21,6 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
   imports: [
     BrowserModule,
     HttpModule,
-    FormsModule,
-    ReactiveFormsModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(FIREBASE_CONFIG),

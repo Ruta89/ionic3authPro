@@ -36,9 +36,9 @@ export class LoginPage {
 
       this.firebaseService.loginUser(this.loginForm.value.email, this.loginForm.value.password)
         .then((data) => {
-          console.log('mydata: ', data);
+          //console.log('mydata: ', data);
           this.loading.dismiss().then(() => {
-            this.navCtrl.setRoot('TabsPage');
+            //this.navCtrl.setRoot('TabsPage');
           });
         }, error => {
           this.loading.dismiss().then(() => {
@@ -60,6 +60,45 @@ export class LoginPage {
 
   gotoSignup() {
     this.navCtrl.push('RegisterPage');
+  }
+
+  resetPassword() {
+    let prompt = this.alertCtrl.create({
+      title: 'Reset Password',
+      message: 'Enter your email below',
+      inputs: [
+        {
+          name: 'email',
+          placeholder: 'arek@op.pl'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel'
+        },
+        {
+          text: 'Reset',
+          handler: data => {
+            this.firebaseService.resetPassword(data.email).then(data => {
+              this.showBasicAlert('Success', 'Check your email for further instructions.');
+            })
+              .catch(err => {
+                this.showBasicAlert('Error', err.message);
+              });
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  showBasicAlert(title, text) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: text,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 

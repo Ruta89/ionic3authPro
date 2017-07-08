@@ -38,7 +38,7 @@ export class RegisterPage {
       this.firebaseService.signUp(this.signupForm.value.email, this.signupForm.value.password, this.signupForm.value.name)
         .then(() => {
           this.loading.dismiss().then(() => {
-            this.navCtrl.setRoot('LoginPage');
+            //   this.navCtrl.setRoot('LoginPage');
           });
         }, error => {
           this.loading.dismiss().then(() => {
