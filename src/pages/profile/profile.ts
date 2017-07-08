@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { FirebaseServiceProvider } from './../../providers/firebase-service/firebase-service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -13,7 +13,8 @@ export class ProfilePage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    public firebaseServise: FirebaseServiceProvider
+    public firebaseServise: FirebaseServiceProvider,
+    public toastCtrl: ToastController
   ) {
   }
 
@@ -24,6 +25,30 @@ export class ProfilePage {
         this.invitations = this.firebaseServise.getUserInvitations();
       }
     });
+  }
+
+  acceptInvitation(invitation) {
+    this.firebaseServise.acceptInvitation(invitation).then(() => {
+      this.presentToast('Accepted');
+    }).catch((err) => {
+      this.presentToast(err);
+    });
+  }
+
+  discardInvitation(invitationId) {
+    this.firebaseServise.discardInvitation(invitationId).then(() => {
+      this.presentToast('Discarded Invitation');
+    }).catch((err) => {
+      this.presentToast(err);
+    });
+  }
+
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
   }
 
 }

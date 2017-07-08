@@ -84,4 +84,16 @@ export class FirebaseServiceProvider {
     });
   }
 
+  acceptInvitation(invitation) {
+    this.discardInvitation(invitation.$key);
+    let data = {
+      [this.user.uid]: true
+    }
+    return this.afd.object('/partLists/' + invitation.listId).update(data);
+  }
+
+  discardInvitation(invitationId) {
+    return this.afd.list('/invitations').remove(invitationId);
+  }
+
 }

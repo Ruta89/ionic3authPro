@@ -13,6 +13,14 @@
     <ion-card *ngFor="let invitation of invitations | async">
       <ion-card-header>{{ invitation.listName }}</ion-card-header>
       <ion-card-content>Shared by: {{ invitation.fromEmail }}</ion-card-content>
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-left clear (click)="acceptInvitation(invitation)"><ion-icon name="checkmark"></ion-icon>Accept</button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-left clear (click)="discardInvitation(invitation.$key)"><ion-icon name="close"></ion-icon>Discard</button>
+        </ion-col>
+      </ion-row>
     </ion-card>
   </ion-list>
 </ion-content>
