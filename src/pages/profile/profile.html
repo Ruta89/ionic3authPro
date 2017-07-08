@@ -6,8 +6,19 @@
 
 </ion-header>
 
-
 <ion-content padding>
+
+  <form [formGroup]="nameForm" (submit)="updateUser()" novalidate>
+    <ion-item padding>
+      <ion-label floating>Name</ion-label>
+      <ion-input formControlName="name" type="text" [class.invalid]="!nameForm.controls.name.valid"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!nameForm.controls.name.valid" no-lines>
+      <p>Write name</p>
+    </ion-item>
+    <button ion-button block type="submit" [disabled]="!nameForm.valid">Update Profile</button>
+  </form>
+
   <h2 text-center>Invitations</h2>
   <ion-list>
     <ion-card *ngFor="let invitation of invitations | async">

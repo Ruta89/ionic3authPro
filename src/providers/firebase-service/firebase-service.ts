@@ -111,4 +111,12 @@ export class FirebaseServiceProvider {
       });
   }
 
+  getUserData() {
+    return this.afd.object('/userProfile/' + this.user.uid);
+  }
+
+  updateUserName(newName) {
+    return this.afd.object('/userProfile/' + this.user.uid).update({ name: newName });
+  }
+
 }
