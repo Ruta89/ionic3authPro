@@ -9,9 +9,11 @@ import { MyApp } from './app.component';
 import { FIREBASE_CONFIG } from './app.firebase.config';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireModule } from "angularfire2/angularfire2";
+import { AngularFireModule } from "angularfire2";
 
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
+import { HttpModule } from "@angular/http";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -19,6 +21,9 @@ import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    FormsModule,
+    ReactiveFormsModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
@@ -31,8 +36,8 @@ import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     FirebaseServiceProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }
