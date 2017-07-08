@@ -1,24 +1,66 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the LoginPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { EmailValidator } from './../../validators/email';
+import { FirebaseServiceProvider } from './../../providers/firebase-service/firebase-service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController } from 'ionic-angular';
+
 @IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
 export class LoginPage {
+  public loginForm: FormGroup;
+  loading: Loading;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public formBuilder: FormBuilder,
+    public firebaseService: FirebaseServiceProvider,
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController
+  ) {
+
+    this.loginForm = formBuilder.group({
+      email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
+      password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+    });
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+  loginUser() {
+    if (this.loginForm.valid) {
+      this.loading = this.loadingCtrl.create();
+      this.loading.present();
+
+      this.firebaseService.loginUser(this.loginForm.value.email, this.loginForm.value.password)
+        .then((data) => {
+          console.log('mydata: ', data);
+          this.loading.dismiss().then(() => {
+            this.navCtrl.setRoot('TabsPage');
+          });
+        }, error => {
+          this.loading.dismiss().then(() => {
+            let alert = this.alertCtrl.create({
+              title: 'Error',
+              message: error.message,
+              buttons: [
+                {
+                  text: 'OK',
+                  role: 'cancel'
+                }
+              ]
+            });
+            alert.present();
+          });
+        });
+    }
   }
+
+  gotoSignup() {
+    this.navCtrl.push('RegisterPage');
+  }
+
 
 }
