@@ -96,4 +96,19 @@ export class FirebaseServiceProvider {
     return this.afd.list('/invitations').remove(invitationId);
   }
 
+  getSharedLists() {
+    return this.afd.list('/partLists', {
+      query: {
+        orderByChild: this.user.uid,
+        equalTo: true
+      }
+    })
+      .map(lists => {
+        return lists.map(oneList => {
+          oneList.partItems = this.afd.list(`/partLists/${oneList.$key}/items`);
+          return oneList;
+        });
+      });
+  }
+
 }
