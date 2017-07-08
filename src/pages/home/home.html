@@ -12,6 +12,18 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+
+  <ion-list *ngFor="let list of partLists | async" padding-top>
+    <ion-list-header>
+      {{ list.name }}
+    </ion-list-header>
+  </ion-list>
+
+  <ion-fab right bottom padding>
+    <button ion-fab (click)="newList()">
+    <ion-icon name="add"></ion-icon>
+  </button>
+  </ion-fab>
 
 </ion-content>

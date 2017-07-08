@@ -40,24 +40,17 @@ export class FirebaseServiceProvider {
     return this.afAuth.auth.sendPasswordResetEmail(email);
   }
 
-
   createNewList(name) {
-    return this.afd.list('/shoppingLists').push({ name: name, creator: this.user.email });
+    return this.afd.list('/partLists').push({ name: name, creator: this.user.email });
   }
 
   getUserLists() {
-    return this.afd.list('/shoppingLists', {
+    return this.afd.list('/partLists', {
       query: {
         orderByChild: 'creator',
         equalTo: this.user.email
-      },
+      }
     })
-      .map(lists => {
-        return lists.map(oneList => {
-          oneList.shoppingItems = this.afd.list('/shoppingLists/' + oneList.$key + '/items');
-          return oneList;
-        });
-      });
   }
 
 }
