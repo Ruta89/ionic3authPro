@@ -1,24 +1,29 @@
+import { Observable } from 'rxjs/Observable';
+import { FirebaseServiceProvider } from './../../providers/firebase-service/firebase-service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the ProfilePage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
+  invitations: Observable<any[]>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public firebaseServise: FirebaseServiceProvider
+  ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
+    this.firebaseServise.authState.subscribe(user => {
+      if (user) {
+        this.invitations = this.firebaseServise.getUserInvitations();
+      }
+    });
   }
 
 }

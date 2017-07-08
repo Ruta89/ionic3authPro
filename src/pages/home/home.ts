@@ -127,11 +127,12 @@ export class HomePage {
         {
           text: 'Share list',
           handler: data => {
-            this.firebaseService.shareList(listId, listName, data.email).then(data => {
-              this.presentToast('Invitation sent to ' + data.email);
+            this.firebaseService.shareList(listId, listName, data.email).then(() => {
+              console.log('data email ' + data.email);
+              this.presentToast('Invitation sent to:  ' + data.email);
             })
-              .catch(err => {
-
+              .catch((err) => {
+                console.error(err);
               });
           }
         }

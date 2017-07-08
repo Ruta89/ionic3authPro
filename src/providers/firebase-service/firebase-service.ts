@@ -72,7 +72,16 @@ export class FirebaseServiceProvider {
   }
 
   shareList(listId, listName, shareWith) {
-    return this.afd.list('/invitations').push({ listId: listId, listName: listName, toEmail: shareWith, formEmail: this.user.email });
+    return this.afd.list('/invitations').push({ listId: listId, listName: listName, toEmail: shareWith, fromEmail: this.user.email });
+  }
+
+  getUserInvitations() {
+    return this.afd.list('/invitations', {
+      query: {
+        orderByChild: 'toEmail',
+        equalTo: this.user.email
+      }
+    });
   }
 
 }
