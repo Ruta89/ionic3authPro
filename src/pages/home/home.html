@@ -1,12 +1,17 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-buttons end>
+    <ion-buttons left>
       <button ion-button icon-only (click)="logOut()">
         <ion-icon name="log-out"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>My parts list</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="editMode = !editMode">
+        <ion-icon name="reorder"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -16,7 +21,9 @@
 
   <ion-list *ngFor="let list of partLists | async" padding-top>
     <ion-list-header>
-      {{ list.name }}
+      <button ion-button item-left clear color="danger" icon-only (click)="removeList(list.$key)" *ngIf="editMode">
+        <ion-icon name="remove-circle"></ion-icon>
+        </button> {{ list.name }}
     </ion-list-header>
   </ion-list>
 

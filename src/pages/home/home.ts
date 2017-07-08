@@ -10,6 +10,7 @@ import { IonicPage, NavController, NavParams, AlertController, ToastController }
 })
 export class HomePage {
   partLists: Observable<any[]>;
+  editMode: boolean = true;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public firebaseService: FirebaseServiceProvider,
@@ -69,6 +70,10 @@ export class HomePage {
       duration: 2000
     });
     toast.present();
+  }
+
+  removeList(id) {
+    this.firebaseService.removeList(id);
   }
 
 }

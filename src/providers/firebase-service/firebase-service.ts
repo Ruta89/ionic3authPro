@@ -53,4 +53,8 @@ export class FirebaseServiceProvider {
     })
   }
 
+  removeList(id) {
+    return this.afd.list('/partLists').remove(id);
+  }
+
 }
