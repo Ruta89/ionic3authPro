@@ -76,4 +76,38 @@ export class HomePage {
     this.firebaseService.removeList(id);
   }
 
+  addItemToList(listId, listName) {
+    let prompt = this.alertCtrl.create({
+      title: 'Create item for "' + listName + '"',
+      message: 'Enter a new item',
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Chleb'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel'
+        },
+        {
+          text: 'Add item',
+          handler: data => {
+            this.firebaseService.addListItem(listId, data.name).then(data => {
+              this.presentToast('New item added');
+            })
+              .catch(err => {
+
+              });
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  removeItem(itemId, listId) {
+    this.firebaseService.removePartItem(listId, itemId);
+  }
+
 }

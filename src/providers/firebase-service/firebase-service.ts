@@ -51,10 +51,24 @@ export class FirebaseServiceProvider {
         equalTo: this.user.email
       }
     })
+      .map(lists => {
+        return lists.map(oneList => {
+          oneList.partItems = this.afd.list(`/partLists/${oneList.$key}/items`);
+          return oneList;
+        });
+      });
   }
 
   removeList(id) {
     return this.afd.list('/partLists').remove(id);
+  }
+
+  addListItem(listId, item) {
+    return this.afd.list(`/partLists/${listId}/items`).push({ name: item });
+  }
+
+  removePartItem(listId, itemId) {
+    return this.afd.list(`/partLists/${listId}/items`).remove(itemId);
   }
 
 }

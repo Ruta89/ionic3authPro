@@ -24,7 +24,21 @@
       <button ion-button item-left clear color="danger" icon-only (click)="removeList(list.$key)" *ngIf="editMode">
         <ion-icon name="remove-circle"></ion-icon>
         </button> {{ list.name }}
+      <button ion-button item-right clear icon-only (click)="addItemToList(list.$key, list.name)">
+          <ion-icon name="add"></ion-icon>
+      </button>
     </ion-list-header>
+
+    <ion-item-sliding *ngFor="let partItem of list.partItems | async">
+      <ion-item>
+        {{ partItem.name }}
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="danger" icon-only (click)="removeItem(partItem.$key, list.$key)">
+          <ion-icon name="trash"></ion-icon>  
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 
   <ion-fab right bottom padding>
