@@ -18,6 +18,7 @@ npm-debug.log*
 .versions/
 coverage/
 dist/
+src/app/app.firebase.config.ts
 node_modules/
 tmp/
 temp/
