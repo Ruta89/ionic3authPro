@@ -12,4 +12,4 @@
 ![Alt text](/src/assets/img/ionic3authPro_home.png?raw=true "Home")
 
 ### Profile
-![Alt text](/src/assets/img/ ionic3authPro_profile.png?raw=true "Profile")
+![Alt text](/src/assets/img/ionic3authPro_profile.png?raw=true "Profile")
